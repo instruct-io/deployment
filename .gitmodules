@@ -1,0 +1,6 @@
+[submodule "app"]
+	path = app
+	url = https://github.com/instruct-io/app.git
+[submodule "api"]
+	path = api
+	url = https://github.com/instruct-io/api.git
