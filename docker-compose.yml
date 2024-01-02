@@ -1,0 +1,38 @@
+# Version specification
+version: '3.1'
+
+# Containers
+services:
+  #
+  # MONGO DB
+  #
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_DATABASE: Instruct
+    command: mongod --port 412
+    # ports: 
+    #   - "412:412"
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - mongodb_data:/data/db
+
+  #
+  # WINGSUITE API
+  #
+  api:
+    build: ./api
+    depends_on:
+      - mongodb
+
+  #
+  # WINGSUITE APP
+  #
+  app:
+    build: ./app
+    depends_on:
+      - api
+
+# Volumes
+volumes:
+  mongodb_data:
